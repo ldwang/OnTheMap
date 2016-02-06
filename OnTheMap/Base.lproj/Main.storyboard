@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -8,7 +8,7 @@
         <!--Login-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" userLabel="Login" customClass="LoginViewController" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" userLabel="Login" customClass="LoginViewController" customModule="OnTheMap" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -58,6 +58,9 @@
                                 <state key="normal" title="Login">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="loginButtonTouch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fGa-HV-yvn"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Login to Udacity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WMK-qq-OZS">
                                 <rect key="frame" x="203" y="173" width="195" height="41"/>
@@ -120,9 +123,9 @@
                     </view>
                     <connections>
                         <outlet property="debugTextLabel" destination="vuk-nq-iXV" id="bXz-S8-5f2"/>
-                        <outlet property="emailTextField" destination="Hyw-UW-R0d" id="vxd-bd-57B"/>
                         <outlet property="loginButton" destination="6WK-Jt-Crb" id="dIb-nj-QSM"/>
                         <outlet property="passwordTextField" destination="xvK-v6-pKg" id="5SB-El-GJY"/>
+                        <outlet property="usernameTextField" destination="Hyw-UW-R0d" id="8ls-vT-r8Z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -167,10 +170,10 @@
             </objects>
             <point key="canvasLocation" x="982" y="-279"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--OTMTabBarController-->
         <scene sceneID="Vsl-PE-kak">
             <objects>
-                <tabBarController id="0q2-p3-d3t" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="OTMTabBarController" title="OTMTabBarController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0q2-p3-d3t" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Lt5-BW-NdB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
