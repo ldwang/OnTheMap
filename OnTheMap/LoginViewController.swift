@@ -23,6 +23,8 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        usernameTextField.text = "lw3111@intl.att.com"
+        passwordTextField.text = "F0rever.ud"
         
         //Get the shared URL Session
         session = NSURLSession.sharedSession()
@@ -75,7 +77,7 @@ class LoginViewController: UIViewController {
             
             /* GUARD: Did we get a successful 2XX response? */
             
-            print(response)
+            //print(response)
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
                 if let response = response as? NSHTTPURLResponse {
                     print("Your request returned an invalid response! Status code: \(response.statusCode)!")
@@ -96,37 +98,37 @@ class LoginViewController: UIViewController {
             
             
             /* Parse the data and use the data (happens in completion handler) */
-            let parseResult: AnyObject!
+            let parsedResult: AnyObject!
             do {
                 //Remove first 5 characters from data
                 let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
                 //print(NSString(data: newData, encoding: NSUTF8StringEncoding))
-                parseResult = try NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
+                parsedResult = try NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
                 
             } catch {
-                parseResult = nil
+                parsedResult = nil
                 return
             }
             //GUARD: Did the Udacity Authentication return an error?
-            guard parseResult.objectForKey("account")!["registered"] as! Bool  else {
-                print("The User is not registered. See the errors in \(parseResult)")
+            guard parsedResult.objectForKey("account")!["registered"] as! Bool  else {
+                print("The User is not registered. See the errors in \(parsedResult)")
                 return
             }
             
-//            guard let accountKey = parseResult.objectForKey("account")!["key"] as? Int else {
-//                print("\(parseResult.objectForKey("account")!["key"])")
-//                print("The account Key is no available. See the errors in \(parseResult)")
-//                return
-//            }
+            guard let accountKey = parsedResult.objectForKey("account")!["key"] as? String else {
+                print("\(parsedResult.objectForKey("account")!["key"])")
+                print("The account Key is no available. See the errors in \(parsedResult)")
+                return
+            }
             
-            guard let sessionID = parseResult.objectForKey("session")!["id"] as? String else {
-                print("The session id is not valid. See the errors in \(parseResult)")
+            guard let sessionID = parsedResult.objectForKey("session")!["id"] as? String else {
+                print("The session id is not valid. See the errors in \(parsedResult)")
                 return
             }
             
             //Use the data
             OTMClient.sharedInstance().sessionID = sessionID
-        //OTMClient.sharedInstance().accountKey = accountKey
+            OTMClient.sharedInstance().userID =  Int(accountKey)
             self.completeLogin()
         }
         

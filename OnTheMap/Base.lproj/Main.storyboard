@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Login-->
@@ -154,7 +156,7 @@
         <!--Map-->
         <scene sceneID="m5w-C3-jRu">
             <objects>
-                <viewController id="IMO-Pe-wdN" userLabel="Map" sceneMemberID="viewController">
+                <viewController id="IMO-Pe-wdN" userLabel="Map" customClass="MapViewController" customModule="OnTheMap" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="afe-nH-NZv"/>
                         <viewControllerLayoutGuide type="bottom" id="hQA-fo-We8"/>
@@ -162,13 +164,80 @@
                     <view key="view" contentMode="scaleToFill" id="vnD-5D-Zt8" userLabel="Map">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XR3-Oc-uko" userLabel="On The Map">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="On The Map" id="Qog-JO-0v1" userLabel="On The Map">
+                                        <barButtonItem key="leftBarButtonItem" title="Logout" id="YVX-rH-75Q" userLabel="Logout">
+                                            <connections>
+                                                <action selector="logoutButtonTouchUpInside:" destination="IMO-Pe-wdN" id="bm8-hS-YzN"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <rightBarButtonItems>
+                                            <barButtonItem systemItem="refresh" id="jj9-83-8QI">
+                                                <connections>
+                                                    <action selector="refreshButtonTouchUpInside:" destination="IMO-Pe-wdN" id="FTf-Pw-8Lj"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem image="pin" id="rLm-wm-Psz" userLabel="Pin">
+                                                <connections>
+                                                    <action selector="pinButtonTouchUpInside:" destination="IMO-Pe-wdN" id="RQj-kk-3Vr"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </rightBarButtonItems>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="WKK-kS-6XN">
+                                <rect key="frame" x="0.0" y="64" width="600" height="492"/>
+                                <connections>
+                                    <outlet property="delegate" destination="IMO-Pe-wdN" id="1rx-jg-C9y"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hQA-fo-We8" firstAttribute="top" secondItem="WKK-kS-6XN" secondAttribute="bottom" id="Aiz-w3-KR2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="XR3-Oc-uko" secondAttribute="trailing" constant="-20" id="HgT-YS-O0w"/>
+                            <constraint firstItem="WKK-kS-6XN" firstAttribute="leading" secondItem="vnD-5D-Zt8" secondAttribute="leadingMargin" constant="-20" id="KHv-FW-yWH"/>
+                            <constraint firstItem="WKK-kS-6XN" firstAttribute="top" secondItem="XR3-Oc-uko" secondAttribute="bottom" id="fq5-cz-Xyz"/>
+                            <constraint firstItem="XR3-Oc-uko" firstAttribute="top" secondItem="afe-nH-NZv" secondAttribute="bottom" id="gtt-7L-y4V"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="WKK-kS-6XN" secondAttribute="trailing" constant="-20" id="svt-y4-WsI"/>
+                            <constraint firstItem="XR3-Oc-uko" firstAttribute="leading" secondItem="vnD-5D-Zt8" secondAttribute="leadingMargin" constant="-20" id="zmo-QR-zi3"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="map" id="NUp-qY-Qqa"/>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="logutButton" destination="YVX-rH-75Q" id="wcn-FP-oav"/>
+                        <outlet property="mapView" destination="WKK-kS-6XN" id="96i-7d-c7T"/>
+                        <outlet property="pinButton" destination="rLm-wm-Psz" id="sq5-Sn-wlO"/>
+                        <outlet property="refreshButton" destination="jj9-83-8QI" id="MtL-y6-TEh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lbN-LU-S4g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="982" y="-279"/>
+            <point key="canvasLocation" x="1024" y="-269"/>
+        </scene>
+        <!--InfoPost-->
+        <scene sceneID="veM-Us-HiP">
+            <objects>
+                <viewController id="8mL-YK-dH7" userLabel="InfoPost" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cHq-Dq-c0U"/>
+                        <viewControllerLayoutGuide type="bottom" id="xRL-jB-eN0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="y7V-Ge-YMo">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a9p-rS-Uh7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1757" y="-269"/>
         </scene>
         <!--OTMTabBarController-->
         <scene sceneID="Vsl-PE-kak">
@@ -192,6 +261,7 @@
     <resources>
         <image name="list" width="32" height="32"/>
         <image name="map" width="32" height="32"/>
+        <image name="pin" width="32" height="32"/>
         <image name="udacity" width="256" height="256"/>
     </resources>
 </document>

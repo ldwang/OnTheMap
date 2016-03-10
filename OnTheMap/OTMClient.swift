@@ -20,7 +20,6 @@ class OTMClient : NSObject {
 //    var config = OTMConfig()
     
     //Authentication state
-    var accountKey: Int = 0
     var sessionID : String? = nil
     var userID : Int? = nil
     
