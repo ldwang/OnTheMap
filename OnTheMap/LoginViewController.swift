@@ -49,98 +49,29 @@ class LoginViewController: UIViewController {
         } else {
             
             //Steps for Authentication ...
-            loginWithUdacity()
-        }
-    }
-    
-    // MARK: Login with Udacity Username/Password
-    func loginWithUdacity() {
-    
-        /* Build the URL and configure the request */
-        let urlString = OTMClient.Constants.UdacityBaseURLSecure + OTMClient.Methods.Session
-        let url = NSURL(string: urlString)!
-        let request = NSMutableURLRequest(URL: url)
-        request.HTTPMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = "{\"udacity\": {\"username\": \"\(usernameTextField.text!)\", \"password\": \"\(passwordTextField.text!)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
-        
-        /* Make the request */
-        let task = session.dataTaskWithRequest(request) { (data, response, error) in
-            
-            /* GUARD: Was there an error? */
-            guard (error == nil) else {
-                self.displayError("\(error)")
-                print("There was an error with your request: \(error)")
-                return
-            }
-            
-            /* GUARD: Did we get a successful 2XX response? */
-            
-            //print(response)
-            guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
-                if let response = response as? NSHTTPURLResponse {
-                    print("Your request returned an invalid response! Status code: \(response.statusCode)!")
-                } else if let response = response {
-                    print("Your request returned an invalid response! Response: \(response)!")
-                } else {
-                    print("Your request returned an invalid response!")
-                }
-                return
-            }
-            
-            /* GUARD: Was there any data returned? */
-            guard let data = data else {
-                print("No data was returned by the request!")
-                return
-            }
-            
-            
-            
-            /* Parse the data and use the data (happens in completion handler) */
-            let parsedResult: AnyObject!
-            do {
-                //Remove first 5 characters from data
-                let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
-                //print(NSString(data: newData, encoding: NSUTF8StringEncoding))
-                parsedResult = try NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
+            let username = usernameTextField.text
+            let password = passwordTextField.text
+            OTMClient.sharedInstance().loginWithUserName(username!, password: password!) { (success, userID, sessionID, errorString) in
                 
-            } catch {
-                parsedResult = nil
-                return
+                if success {
+                    OTMClient.sharedInstance().sessionID = sessionID
+                    OTMClient.sharedInstance().userID =  userID
+                    self.completeLogin()
+                    
+                } else {
+                    self.displayError(errorString)
+                }
             }
-            //GUARD: Did the Udacity Authentication return an error?
-            guard parsedResult.objectForKey("account")!["registered"] as! Bool  else {
-                print("The User is not registered. See the errors in \(parsedResult)")
-                return
-            }
-            
-            guard let accountKey = parsedResult.objectForKey("account")!["key"] as? String else {
-                print("\(parsedResult.objectForKey("account")!["key"])")
-                print("The account Key is no available. See the errors in \(parsedResult)")
-                return
-            }
-            
-            guard let sessionID = parsedResult.objectForKey("session")!["id"] as? String else {
-                print("The session id is not valid. See the errors in \(parsedResult)")
-                return
-            }
-            
-            //Use the data
-            OTMClient.sharedInstance().sessionID = sessionID
-            OTMClient.sharedInstance().userID =  Int(accountKey)
-            self.completeLogin()
         }
-        
-        /* 7. Start the request */
-        task.resume()
-
     }
+    
     
 
     func completeLogin() {
         dispatch_async(dispatch_get_main_queue(), {
             self.debugTextLabel.text = ""
+            //print("Session ID: " + OTMClient.sharedInstance().sessionID!)
+            //print("User ID: " + String(OTMClient.sharedInstance().userID))
             let controller = self.storyboard!.instantiateViewControllerWithIdentifier("OTMTabBarController") as! UITabBarController
             self.presentViewController(controller, animated: true, completion: nil)
         })
