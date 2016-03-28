@@ -41,12 +41,45 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func pinButtonTouchUpInside(sender: AnyObject) {
-        checkStudentID()
+        updateLocation()
     }
  
     @IBAction func refreshButtonTouchUpInside(sender: AnyObject) {
         self.mapView.removeAnnotations(mapView.annotations)
         refreshMap()
+    }
+    
+    func updateLocation() {
+        
+        let id = OTMClient.sharedInstance().userID
+        OTMClient.sharedInstance().checkStudentID(id!) { (success, locations, errorString) in
+            if success {
+                dispatch_async(dispatch_get_main_queue()) {
+                    
+                    //print(locations)
+                    if !locations.isEmpty {
+                    
+                    let alertController = UIAlertController(title: "", message: "User \"\(locations[0].firstName!) \(locations[0].lastName!) has already posted a student location. Would you like to overwrite the location?", preferredStyle: .Alert)
+                    let overwrite = UIAlertAction(title: "OverWrite", style: .Default, handler: { (action) -> Void in
+                        // Do whatever you want with inputTextField?.text
+                        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InfoPost") 
+                        self.presentViewController(controller, animated: true, completion: nil)
+                    })
+                    let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in }
+                    
+                    alertController.addAction(overwrite)
+                    alertController.addAction(cancel)
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                    } else {
+                        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InfoPost")
+                        self.presentViewController(controller, animated: true, completion: nil)
+                    }
+                }
+            } else {
+                print(errorString)
+            }
+        }
+        
     }
     
     
@@ -90,76 +123,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // When the array is complete, we add the annotations to the map.
         self.mapView.addAnnotations(annotations)
     }
-    
-    func checkStudentID() {
-        let id = String(OTMClient.sharedInstance().userID!)
-        print(id)
-        let urlString = OTMClient.Constants.ParseBaseURLSecure + OTMClient.Methods.StudentLocation + "?where=%7B%22uniqueKey%22%3A%22\(id)%22%7D"
-        let url = NSURL(string: urlString)!
-        let request = NSMutableURLRequest(URL: url)
-        request.addValue(OTMClient.Constants.ParseApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue(OTMClient.Constants.ParseAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
-        //let session = NSURLSession.sharedSession()
-        
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-            
-            /* GUARD: Was there an error? */
-            guard (error == nil) else {
-                print("There was an error with your request: \(error)")
-                return
-            }
-            
-            /* GUARD: Did we get a successful 2XX response? */
-            guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
-                if let response = response as? NSHTTPURLResponse {
-                    print("Your request returned an invalid response! Status code: \(response.statusCode)!")
-                } else if let response = response {
-                    print("Your request returned an invalid response! Response: \(response)!")
-                } else {
-                    print("Your request returned an invalid response!")
-                }
-                return
-            }
-            
-            print(response)
-            
-            /* GUARD: Was there any data returned? */
-            guard let data = data else {
-                print("No data was returned by the request!")
-                return
-            }
-            
-            /* Parse the data and use the data (happens in completion handler) */
-            let parsedResult: AnyObject!
-            do {
-                parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
-                
-            } catch {
-                parsedResult = nil
-                return
-            }
-            
-            print(parsedResult)
-            /* GUARD: Is the "results" key in parsedResult? */
-            guard let results = parsedResult["results"] as? [[String : AnyObject]] else {
-                print("Cannot find key 'results' in \(parsedResult)")
-                return
-            }
-            
-            /* 6. Use the data! */
-            dispatch_async(dispatch_get_main_queue()) {
-                var locations: [StudentInformation] = [StudentInformation]()
-                locations = StudentInformation.studentInformationFromResults(results)
-                //self.showStudentLocations(locations)
-                print(locations)
-            }
-            
-        }
-        
-        task.resume()
-    
-    }
-    
 
     
     // MARK: - MKMapViewDelegate

@@ -55,6 +55,8 @@ class OTMClient : NSObject {
         /* 4. Make the request */
         let task = session.dataTaskWithRequest(request) { (data, response, error) in
             
+            print(response)
+            
             /* GUARD: Was there an error? */
             guard (error == nil) else {
                 print("There was an error with your request: \(error)")
@@ -74,6 +76,8 @@ class OTMClient : NSObject {
             }
             
             /* GUARD: Was there any data returned? */
+            
+            //print(data)
             guard let data = data else {
                 print("No data was returned by the request!")
                 return
@@ -129,7 +133,7 @@ class OTMClient : NSObject {
                 return
             }
             
-            print(response)
+           // print(response)
             
             /* GUARD: Did we get a successful 2XX response? */
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {

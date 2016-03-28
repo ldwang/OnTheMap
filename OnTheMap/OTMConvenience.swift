@@ -134,7 +134,33 @@ extension OTMClient {
         
     }
     
-    func checkStudentID(completionHandler: (success: Bool, location: [StudentInformation], errorString: String?) -> Void) {
+    func checkStudentID(id: Int, completionHandler: (success: Bool, locations: [StudentInformation], errorString: String?) -> Void) {
+        let site = "Parse"
+        let method = OTMClient.Methods.StudentLocation
+        let userID = String(id)
         
+        let parameters = [
+            //"where" : "{\"uniqueKey\":\"1111222333444555\"}"]
+            "where" : "{\"uniqueKey\":\"\(userID)\"}"]
+        
+        taskForGETMethod(site, method: method, parameters: parameters) { (jsonResult, error) in
+            if let error = error {
+                print(error)
+                
+                completionHandler(success: false, locations: [StudentInformation](), errorString: "Get Student(ID: \(userID) Location Data Failed.")
+            } else {
+                //print(jsonResult)
+                if let results = jsonResult["results"] as? [[String : AnyObject]] {
+                    var locations: [StudentInformation] = [StudentInformation]()
+                    locations = StudentInformation.studentInformationFromResults(results)
+                    completionHandler(success: true, locations: locations, errorString: nil)
+                } else {
+                    print("Cannot find key 'results' in \(jsonResult)")
+                    completionHandler(success: false, locations: [StudentInformation](), errorString: "Cannot find key 'results' in the response data.")
+                }
+                
+            }
+        }
+
     }
 }
