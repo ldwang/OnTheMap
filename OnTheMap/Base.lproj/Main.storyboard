@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
@@ -233,45 +233,58 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Where are you" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MY6-Xp-EBS" userLabel="TopLabel1">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Where are you" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MY6-Xp-EBS" userLabel="topLabel1">
                                 <rect key="frame" x="236" y="50" width="128" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Study" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pug-2n-nsS" userLabel="TopLabel2">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Study" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pug-2n-nsS" userLabel="topLabel2">
                                 <rect key="frame" x="236" y="71" width="128" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" red="0.1843137255" green="0.27058823529999998" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="today?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KpK-HN-9gw" userLabel="TopLabel3">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="today?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KpK-HN-9gw" userLabel="topLabel3">
                                 <rect key="frame" x="236" y="92" width="128" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jSm-4W-rBa" userLabel="FindButton">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jSm-4W-rBa" userLabel="findButton">
                                 <rect key="frame" x="235" y="535" width="130" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Find On the Map"/>
+                                <connections>
+                                    <action selector="findButtonTouch:" destination="gJG-IM-LGN" eventType="touchUpInside" id="sVl-ab-6dQ"/>
+                                </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gb2-kB-eUm" userLabel="SubmitButton">
+                            <mapView hidden="YES" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Vh0-5K-JVX" userLabel="mapView">
+                                <rect key="frame" x="0.0" y="160" width="600" height="440"/>
+                            </mapView>
+                            <button contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gb2-kB-eUm" userLabel="submitButton">
                                 <rect key="frame" x="244" y="535" width="113" height="30"/>
-                                <state key="normal" title="Submit"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Submit">
+                                    <color key="titleColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="submitButtonTouch:" destination="gJG-IM-LGN" eventType="touchUpInside" id="TiG-Ja-qbl"/>
+                                </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KZy-FU-BKL" userLabel="PromptMiddleView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KZy-FU-BKL" userLabel="promptMiddleView">
                                 <rect key="frame" x="0.0" y="160" width="600" height="340"/>
                                 <subviews>
-                                    <mapView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Vh0-5K-JVX">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="441"/>
-                                    </mapView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Enter The Location Here" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BaE-Ts-MD6" userLabel="LocationTextField">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Enter The Location Here" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="BaE-Ts-MD6" userLabel="LocationTextField">
                                         <rect key="frame" x="65" y="24" width="470" height="30"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                 </subviews>
-                                <color key="backgroundColor" red="0.40000000000000002" green="0.59999999999999998" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="BaE-Ts-MD6" firstAttribute="top" secondItem="KZy-FU-BKL" secondAttribute="top" constant="25" id="0Yq-Va-ymL"/>
                                     <constraint firstItem="BaE-Ts-MD6" firstAttribute="centerX" secondItem="KZy-FU-BKL" secondAttribute="centerX" id="JuX-EG-tz2"/>
@@ -279,35 +292,66 @@
                                     <constraint firstAttribute="trailing" secondItem="BaE-Ts-MD6" secondAttribute="trailing" constant="65" id="qmh-39-sec"/>
                                 </constraints>
                             </view>
-                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Enter The URL Here" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TJ6-j3-MKx" userLabel="URLTextField">
-                                <rect key="frame" x="60" y="68" width="480" height="30"/>
-                                <color key="textColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <textInputTraits key="textInputTraits"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Enter a Link to Share Here" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0QM-ij-ghC" userLabel="urlTextField">
+                                <rect key="frame" x="14" y="67" width="573" height="30"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" keyboardType="URL"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QXz-zZ-36M" userLabel="cancelButton">
+                                <rect key="frame" x="518" y="28" width="69" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelButtonTouch:" destination="gJG-IM-LGN" eventType="touchUpInside" id="Dmq-jS-ycz"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="lSB-lv-BMo">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="MY6-Xp-EBS" firstAttribute="top" secondItem="C7o-1P-eob" secondAttribute="bottom" constant="30" id="4MG-eq-GtP"/>
                             <constraint firstItem="nD9-EM-6Y0" firstAttribute="top" secondItem="jSm-4W-rBa" secondAttribute="bottom" constant="35" id="5ei-xN-Zl9"/>
                             <constraint firstItem="nD9-EM-6Y0" firstAttribute="top" secondItem="Gb2-kB-eUm" secondAttribute="bottom" constant="35" id="7V4-Wd-GKu"/>
-                            <constraint firstItem="TJ6-j3-MKx" firstAttribute="centerX" secondItem="h6N-QZ-LYP" secondAttribute="centerX" id="9F6-Qd-nLZ"/>
                             <constraint firstItem="nD9-EM-6Y0" firstAttribute="top" secondItem="KZy-FU-BKL" secondAttribute="bottom" constant="100" id="GL0-uT-yLH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="QXz-zZ-36M" secondAttribute="trailing" constant="-7" id="NK7-qC-b2Y"/>
                             <constraint firstAttribute="trailingMargin" secondItem="KZy-FU-BKL" secondAttribute="trailing" constant="-20" id="NmZ-Lc-i8T"/>
+                            <constraint firstItem="0QM-ij-ghC" firstAttribute="leading" secondItem="h6N-QZ-LYP" secondAttribute="leadingMargin" constant="-6" id="O3I-qs-wJy"/>
+                            <constraint firstItem="lSB-lv-BMo" firstAttribute="centerY" secondItem="h6N-QZ-LYP" secondAttribute="centerY" id="Uvo-da-jcA"/>
                             <constraint firstItem="MY6-Xp-EBS" firstAttribute="centerX" secondItem="h6N-QZ-LYP" secondAttribute="centerX" id="VxX-kz-SGM"/>
+                            <constraint firstItem="Vh0-5K-JVX" firstAttribute="leading" secondItem="h6N-QZ-LYP" secondAttribute="leadingMargin" constant="-20" id="W2D-cJ-68h"/>
                             <constraint firstItem="KZy-FU-BKL" firstAttribute="leading" secondItem="h6N-QZ-LYP" secondAttribute="leadingMargin" constant="-20" id="YF7-cR-cvK"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0QM-ij-ghC" secondAttribute="trailing" constant="-7" id="brw-Gy-jJU"/>
                             <constraint firstItem="KpK-HN-9gw" firstAttribute="centerX" secondItem="h6N-QZ-LYP" secondAttribute="centerX" id="dVg-QO-zWs"/>
+                            <constraint firstItem="0QM-ij-ghC" firstAttribute="top" secondItem="C7o-1P-eob" secondAttribute="bottom" constant="47" id="daU-C3-Ufx"/>
+                            <constraint firstItem="lSB-lv-BMo" firstAttribute="centerX" secondItem="h6N-QZ-LYP" secondAttribute="centerX" id="dfo-LD-3xE"/>
                             <constraint firstItem="jSm-4W-rBa" firstAttribute="centerX" secondItem="h6N-QZ-LYP" secondAttribute="centerX" id="eyR-G4-VpF"/>
                             <constraint firstItem="KZy-FU-BKL" firstAttribute="top" secondItem="C7o-1P-eob" secondAttribute="bottom" constant="140" id="fZO-ea-AAH"/>
                             <constraint firstItem="pug-2n-nsS" firstAttribute="top" secondItem="MY6-Xp-EBS" secondAttribute="bottom" id="jgy-1Z-me6"/>
+                            <constraint firstItem="QXz-zZ-36M" firstAttribute="top" secondItem="C7o-1P-eob" secondAttribute="bottom" constant="8" id="jqi-1h-RG2"/>
                             <constraint firstItem="Gb2-kB-eUm" firstAttribute="centerX" secondItem="h6N-QZ-LYP" secondAttribute="centerX" id="mSt-Y6-YqF"/>
                             <constraint firstItem="pug-2n-nsS" firstAttribute="centerX" secondItem="h6N-QZ-LYP" secondAttribute="centerX" id="nkA-p8-DDr"/>
-                            <constraint firstItem="TJ6-j3-MKx" firstAttribute="leading" secondItem="h6N-QZ-LYP" secondAttribute="leadingMargin" constant="40" id="oaL-Gz-S5G"/>
+                            <constraint firstItem="nD9-EM-6Y0" firstAttribute="top" secondItem="Vh0-5K-JVX" secondAttribute="bottom" id="oNQ-cE-HdF"/>
                             <constraint firstItem="KpK-HN-9gw" firstAttribute="top" secondItem="pug-2n-nsS" secondAttribute="bottom" id="pNF-8P-nB1"/>
-                            <constraint firstItem="TJ6-j3-MKx" firstAttribute="top" secondItem="C7o-1P-eob" secondAttribute="bottom" constant="48" id="tB6-kw-6S7"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="TJ6-j3-MKx" secondAttribute="trailing" constant="40" id="tol-q6-2xi"/>
+                            <constraint firstItem="Vh0-5K-JVX" firstAttribute="top" secondItem="KpK-HN-9gw" secondAttribute="bottom" constant="47" id="qhT-kH-7xI"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Vh0-5K-JVX" secondAttribute="trailing" constant="-20" id="ys6-TL-vf4"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="lSB-lv-BMo" id="0Qy-Zl-oKC"/>
+                        <outlet property="cancelButton" destination="QXz-zZ-36M" id="hHr-sx-tNG"/>
+                        <outlet property="findButton" destination="jSm-4W-rBa" id="lQW-rI-vVU"/>
+                        <outlet property="locationTextField" destination="BaE-Ts-MD6" id="Ejq-UJ-Kqn"/>
+                        <outlet property="mapView" destination="Vh0-5K-JVX" id="O8x-4q-RuP"/>
+                        <outlet property="promptMiddleView" destination="KZy-FU-BKL" id="gGv-W2-KBq"/>
+                        <outlet property="submitButton" destination="Gb2-kB-eUm" id="iBQ-9E-UJ4"/>
+                        <outlet property="topLabel1" destination="MY6-Xp-EBS" id="xH7-Ec-haI"/>
+                        <outlet property="topLabel2" destination="pug-2n-nsS" id="HSX-gT-aZ0"/>
+                        <outlet property="topLabel3" destination="KpK-HN-9gw" id="urq-Gb-HqO"/>
+                        <outlet property="urlTextField" destination="0QM-ij-ghC" id="g5k-jw-AIQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cs7-vu-g2k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

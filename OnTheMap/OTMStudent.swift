@@ -16,10 +16,10 @@ struct StudentInformation {
     var lastName: String? = nil
     var latitude: Float? = nil
     var longitude: Float? = nil
-    //var mapString: String? = nil
+    var mapString: String? = nil
     var mediaURL: String? = nil
-    var objectID: String? = nil
-    var uniqueKey: Int? = nil
+    var objectId: String? = nil
+    var uniqueKey: String? = nil
     //var updateAt: String? = nil
     
     //MARK Initializers
@@ -32,9 +32,10 @@ struct StudentInformation {
         lastName = dictionary["lastName"] as? String
         latitude = dictionary["latitude"] as? Float
         longitude = dictionary["longitude"] as? Float
+        mapString = dictionary["mapString"] as? String
         mediaURL = dictionary["mediaURL"] as? String
-        objectID = dictionary["objectID"] as? String
-        uniqueKey = dictionary["uniqueKey"] as? Int
+        objectId = dictionary["objectId"] as? String
+        uniqueKey = dictionary["uniqueKey"] as? String
         
     }
         

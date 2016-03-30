@@ -26,13 +26,13 @@ extension OTMClient {
         
         //MARK: Parse Student Locations
         static let StudentLocation = "StudentLocation"
-        static let UpdateStudentLocation = "StudentLocation/{objectid}"
+        static let UpdateStudentLocation = "StudentLocation/{objectId}"
     }
     
     //MARK: URL Keys
     struct URLKeys {
         static let UserID = "id"
-        static let ObjectID = "objectid"
+        static let ObjectID = "objectId"
     }
     
     //MARK: Parameter Keys
