@@ -23,6 +23,9 @@ class OTMClient : NSObject {
     var sessionID : String? = nil
     var userID : String? = nil
     
+    //Student Locations
+    var studentLocations : [StudentInformation] = [StudentInformation]()
+    
     //MARK: Initializers
     
     override init() {
@@ -233,6 +236,7 @@ class OTMClient : NSObject {
         return task
     }
 
+    
     
     /* Helper: Given raw JSON, return a usable Foundation object */
     class func parseJSONWithCompletionHandler(site: String, data: NSData, completionHandler: (result: AnyObject!, error: NSError?) -> Void) {

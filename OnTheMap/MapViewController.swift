@@ -42,7 +42,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func pinButtonTouchUpInside(sender: AnyObject) {
-        updateLocation()
+        OTMClient.sharedInstance().updateLocation(self)
     }
  
     @IBAction func refreshButtonTouchUpInside(sender: AnyObject) {
@@ -50,45 +50,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         refreshMap()
     }
     
-    func updateLocation() {
         
-        let id = OTMClient.sharedInstance().userID
-        OTMClient.sharedInstance().checkStudentID(id!) { (success, locations, errorString) in
-            if success {
-                dispatch_async(dispatch_get_main_queue()) {
-                    
-                    //print(locations)
-                    if !locations.isEmpty {
-                    
-                    let alertController = UIAlertController(title: "", message: "User \"\(locations[0].firstName!) \(locations[0].lastName!) has already posted a student location. Would you like to overwrite the location?", preferredStyle: .Alert)
-                    let overwrite = UIAlertAction(title: "OverWrite", style: .Default, handler: { (action) -> Void in
-                        // Do whatever you want with inputTextField?.text
-                        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InfoPost") 
-                        self.presentViewController(controller, animated: true, completion: nil)
-                    })
-                    let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in }
-                    
-                    alertController.addAction(overwrite)
-                    alertController.addAction(cancel)
-                    self.presentViewController(alertController, animated: true, completion: nil)
-                    } else {
-                        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InfoPost")
-                        self.presentViewController(controller, animated: true, completion: nil)
-                    }
-                }
-            } else {
-                print(errorString)
-            }
-        }
-        
-    }
-    
     
     func refreshMap() {
-        OTMClient.sharedInstance().getStudentsLocation { (success, locations, errorString) in
+        
+        OTMClient.sharedInstance().getStudentLocations { (success, locations, errorString) in
             if success {
+                OTMClient.sharedInstance().studentLocations = locations
                 dispatch_async(dispatch_get_main_queue()) {
-                    self.showStudentLocations(locations)
+                    self.showStudentLocations(OTMClient.sharedInstance().studentLocations)
                     //print(locations)
                 }
             } else {

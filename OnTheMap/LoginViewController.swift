@@ -23,8 +23,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        usernameTextField.text = "lw3111@intl.att.com"
-        passwordTextField.text = "F0rever.ud"
+        
         
         //Get the shared URL Session
         session = NSURLSession.sharedSession()
@@ -43,9 +42,9 @@ class LoginViewController: UIViewController {
     
     @IBAction func loginButtonTouch(sender: AnyObject) {
         if usernameTextField.text!.isEmpty {
-            displayError("Email Empty.")
+            displayAlert("Email Empty.")
         } else if passwordTextField.text!.isEmpty {
-            displayError("Password Empty.")
+            displayAlert("Password Empty.")
         } else {
             
             //Steps for Authentication ...
@@ -65,6 +64,12 @@ class LoginViewController: UIViewController {
         }
     }
     
+    @IBAction func signUpButtonTouch(sender: AnyObject) {
+        
+        let app = UIApplication.sharedApplication()
+        let toOpen = "https://www.udacity.com/account/auth#!/signup"
+        app.openURL(NSURL(string: toOpen)!)
+    }
     
 
     func completeLogin() {
@@ -84,6 +89,17 @@ class LoginViewController: UIViewController {
         dispatch_async(dispatch_get_main_queue(), {
             if let errorString = errorString {
                 self.debugTextLabel.text = errorString
+            }
+        })
+    }
+    
+    func displayAlert(alertString: String?) {
+        dispatch_async(dispatch_get_main_queue(), {
+            if let alertString = alertString {
+                let alertController = UIAlertController(title: "", message: "\(alertString)", preferredStyle: .Alert)
+                let dismiss = UIAlertAction(title: "Dismiss", style: .Cancel) { (action) -> Void in }
+                alertController.addAction(dismiss)
+                self.presentViewController(alertController, animated: true, completion: nil)
             }
         })
     }

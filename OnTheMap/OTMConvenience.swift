@@ -108,12 +108,12 @@ extension OTMClient {
         
     }
     
-    func getStudentsLocation(completionHandler: (success: Bool, locations: [StudentInformation], errorString: String?) -> Void) {
+    func getStudentLocations(completionHandler: (success: Bool, locations: [StudentInformation], errorString: String?) -> Void) {
         let site = "Parse"
         let method = OTMClient.Methods.StudentLocation
         let parameters = [
             "limit" : 100,
-            "order" : "updatedAt"]
+            "order" : "-updatedAt"]
         taskForGETMethod(site, method: method, parameters: parameters) { (jsonResult, error) in
             if let error = error {
                 print(error)
@@ -266,4 +266,38 @@ extension OTMClient {
         }
 
     }
+    
+    func updateLocation(hostViewController: UIViewController) {
+        
+        let id = userID
+        checkStudentID(id!) { (success, locations, errorString) in
+            if success {
+                dispatch_async(dispatch_get_main_queue()) {
+                    
+                    //print(locations)
+                    if !locations.isEmpty {
+                        
+                        let alertController = UIAlertController(title: "", message: "User \"\(locations[0].firstName!) \(locations[0].lastName!) has already posted a student location. Would you like to overwrite the location?", preferredStyle: .Alert)
+                        let overwrite = UIAlertAction(title: "OverWrite", style: .Default, handler: { (action) -> Void in
+                            // Do whatever you want with inputTextField?.text
+                            let controller = hostViewController.storyboard!.instantiateViewControllerWithIdentifier("InfoPost")
+                            hostViewController.presentViewController(controller, animated: true, completion: nil)
+                        })
+                        let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in }
+                        
+                        alertController.addAction(overwrite)
+                        alertController.addAction(cancel)
+                        hostViewController.presentViewController(alertController, animated: true, completion: nil)
+                    } else {
+                        let controller = hostViewController.storyboard!.instantiateViewControllerWithIdentifier("InfoPost")
+                        hostViewController.presentViewController(controller, animated: true, completion: nil)
+                    }
+                }
+            } else {
+                print(errorString)
+            }
+        }
+        
+    }
+
 }
