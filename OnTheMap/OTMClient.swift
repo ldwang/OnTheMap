@@ -130,34 +130,58 @@ class OTMClient : NSObject {
         /* 4. Make the request */
         let task = session.dataTaskWithRequest(request) { (data, response, error) in
             
-            /* GUARD: Was there an error? */
-            guard (error == nil) else {
+            
+            if error !== nil {
                 print("There was an error with your request: \(error)")
-                return
-            }
-            
-           // print(response)
-            
-            /* GUARD: Did we get a successful 2XX response? */
-            guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
-                if let response = response as? NSHTTPURLResponse {
-                    print("Your request returned an invalid response! Status code: \(response.statusCode)!")
-                } else if let response = response {
-                    print("Your request returned an invalid response! Response: \(response)!")
-                } else {
-                    print("Your request returned an invalid response!")
+                completionHandler(result: nil, error: error)
+            } else {
+                
+                let statusCode = (response as? NSHTTPURLResponse)?.statusCode
+                
+                if  statusCode >= 200 && statusCode <= 299 {
+                    
+                    if let data = data {
+                        /* Parse the data and use the data (happens in completion handler) */
+                        OTMClient.parseJSONWithCompletionHandler(site, data: data, completionHandler: completionHandler)
+                    } else {
+                        let errorObject = NSError(domain: "\(site)DomainError", code: 1, userInfo: [NSLocalizedDescriptionKey: "No data was returned by the request!"])
+                        completionHandler(result: nil, error: errorObject)
+                    }
+                } else  {
+                    let errorObject = NSError(domain: "\(site)DomainError", code: statusCode!, userInfo: [NSLocalizedDescriptionKey: "Your request returned an invalid response! Status code \(statusCode)"])
+                    completionHandler(result: nil, error: errorObject)
                 }
-                return
             }
             
-            /* GUARD: Was there any data returned? */
-            guard let data = data else {
-                print("No data was returned by the request!")
-                return
-            }
-            
-            /* 5/6. Parse the data and use the data (happens in completion handler) */
-            OTMClient.parseJSONWithCompletionHandler(site, data: data, completionHandler: completionHandler)
+
+//            /* GUARD: Was there an error? */
+//            guard (error == nil) else {
+//                print("There was an error with your request: \(error)")
+//                return
+//            }
+//            
+//           // print(response)
+//            
+//            /* GUARD: Did we get a successful 2XX response? */
+//            guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
+//                if let response = response as? NSHTTPURLResponse {
+//                    print("Your request returned an invalid response! Status code: \(response.statusCode)!")
+//                } else if let response = response {
+//                    print("Your request returned an invalid response! Response: \(response)!")
+//                } else {
+//                    print("Your request returned an invalid response!")
+//                }
+//                return
+//            }
+//            
+//            /* GUARD: Was there any data returned? */
+//            guard let data = data else {
+//                print("No data was returned by the request!")
+//                return
+//            }
+//            
+//            /* 5/6. Parse the data and use the data (happens in completion handler) */
+//            OTMClient.parseJSONWithCompletionHandler(site, data: data, completionHandler: completionHandler)
         }
         
         /* 7. Start the request */

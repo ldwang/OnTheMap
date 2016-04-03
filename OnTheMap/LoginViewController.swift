@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
 
     //MARK: Properties
@@ -27,9 +27,17 @@ class LoginViewController: UIViewController {
         
         //Get the shared URL Session
         session = NSURLSession.sharedSession()
-        
+        usernameTextField.delegate = self
+        passwordTextField.delegate = self
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
     
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -58,7 +66,7 @@ class LoginViewController: UIViewController {
                     self.completeLogin()
                     
                 } else {
-                    self.displayError(errorString)
+                    self.displayAlert(errorString)
                 }
             }
         }
@@ -103,5 +111,24 @@ class LoginViewController: UIViewController {
             }
         })
     }
+    
+    //Text Field Delegate Methods
+    func textFieldDidBeginEditing(textField: UITextField) {
+        textField.text = ""
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        if textField.text!.isEmpty && textField == usernameTextField {
+            usernameTextField.text = "Email"
+        } else if textField.text!.isEmpty && textField == passwordTextField {
+            passwordTextField.text = "password"
+        }
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
     
 }

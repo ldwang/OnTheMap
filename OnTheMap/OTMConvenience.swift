@@ -30,8 +30,17 @@ extension OTMClient {
         taskForPOSTMethod(site, method: method, parameters: parameters, jsonBody: jsonBody) { jsonResult, error in
             
             if let error = error {
-                print(error)
-                completionHandler(success: false, userID: nil, sessionID: nil, errorString: "Login Udacity Failed.")
+                
+                let errorCode = error.code
+                
+                if errorCode == 403 {
+                    completionHandler(success: false, userID: nil, sessionID: nil, errorString: "Invalid Email or Password.")
+                    
+                } else {
+                    completionHandler(success: false, userID: nil, sessionID: nil, errorString: error.localizedDescription)
+                }
+                
+                
             } else {
                 
                 //Did the Udacity Authentication return an error?
