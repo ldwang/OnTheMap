@@ -33,7 +33,8 @@ class ListViewController : UIViewController, UITableViewDelegate, UITableViewDat
                         self.tableView.reloadData()
                     }
                 } else {
-                    print(errorString)
+                    OTMClient.sharedInstance().displayAlert(self, alertString: errorString)
+                    print(errorString!)
                 }
             }
                 
@@ -65,7 +66,8 @@ class ListViewController : UIViewController, UITableViewDelegate, UITableViewDat
                     self.tableView.reloadData()
                 }
             } else {
-                print(errorString)
+                OTMClient.sharedInstance().displayAlert(self, alertString: errorString)
+                print(errorString!)
             }
         }
 

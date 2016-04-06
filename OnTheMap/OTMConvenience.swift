@@ -308,5 +308,15 @@ extension OTMClient {
         }
         
     }
-
+    
+    func displayAlert(hostViewController: UIViewController, alertString: String?) {
+        dispatch_async(dispatch_get_main_queue(), {
+            if let alertString = alertString {
+                let alertController = UIAlertController(title: "", message: "\(alertString)", preferredStyle: .Alert)
+                let dismiss = UIAlertAction(title: "Dismiss", style: .Cancel) { (action) -> Void in }
+                alertController.addAction(dismiss)
+                hostViewController.presentViewController(alertController, animated: true, completion: nil)
+            }
+        })
+    }
 }

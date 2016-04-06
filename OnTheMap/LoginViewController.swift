@@ -50,9 +50,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func loginButtonTouch(sender: AnyObject) {
         if usernameTextField.text!.isEmpty {
-            displayAlert("Email Empty.")
+            OTMClient.sharedInstance().displayAlert(self, alertString: "Email Empty.")
         } else if passwordTextField.text!.isEmpty {
-            displayAlert("Password Empty.")
+            OTMClient.sharedInstance().displayAlert(self, alertString: "Password Empty.")
         } else {
             
             //Steps for Authentication ...
@@ -66,7 +66,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     self.completeLogin()
                     
                 } else {
-                    self.displayAlert(errorString)
+                    OTMClient.sharedInstance().displayAlert(self, alertString: errorString)
                 }
             }
         }
@@ -101,16 +101,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         })
     }
     
-    func displayAlert(alertString: String?) {
-        dispatch_async(dispatch_get_main_queue(), {
-            if let alertString = alertString {
-                let alertController = UIAlertController(title: "", message: "\(alertString)", preferredStyle: .Alert)
-                let dismiss = UIAlertAction(title: "Dismiss", style: .Cancel) { (action) -> Void in }
-                alertController.addAction(dismiss)
-                self.presentViewController(alertController, animated: true, completion: nil)
-            }
-        })
-    }
     
     //Text Field Delegate Methods
     func textFieldDidBeginEditing(textField: UITextField) {

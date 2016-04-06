@@ -59,7 +59,7 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate{
     
     @IBAction func findButtonTouch(sender: AnyObject) {
         if locationTextField.text!.isEmpty || locationTextField.text!=="Enter The Location Here" {
-            displayAlert("Must Entr a Location.")
+            OTMClient.sharedInstance().displayAlert(self, alertString:"Must Entr a Location.")
         } else {
             
             enableActivityIndicator()
@@ -68,12 +68,12 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate{
             
                 guard error == nil else {
                     self.disableActivityIndicator()
-                    self.displayAlert("Could Not Geocode the String.")
+                    OTMClient.sharedInstance().displayAlert(self, alertString:"Could Not Geocode the String.")
                     return
                 }
                 guard placemarks?.count > 0 else {
                     self.disableActivityIndicator()
-                    self.displayAlert("Could Not Geocode the String.")
+                    OTMClient.sharedInstance().displayAlert(self, alertString:"Could Not Geocode the String.")
                     return
                 }
                 self.disableActivityIndicator()
@@ -91,7 +91,7 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate{
 
     @IBAction func submitButtonTouch(sender: AnyObject) {
         if urlTextField.text!.isEmpty || urlTextField.text!=="Enter a Link to Share Here" {
-            displayAlert("Must Enter a URL Link.")
+            OTMClient.sharedInstance().displayAlert(self, alertString:"Must Enter a URL Link.")
         } else {
             let id = OTMClient.sharedInstance().userID
             OTMClient.sharedInstance().checkStudentID(id!) { (success, studentInformations, errorString) in
@@ -114,14 +114,14 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate{
                             ]
                             let info = StudentInformation(dictionary: dict as! [String : AnyObject])
                             
-                            print(info)
+                            //print(info)
                             OTMClient.sharedInstance().updateStudentLocation(info) { success, error in
                              
                                 if success {
                                     print("Successfully Update Student Location.")
                                         self.dismissViewControllerAnimated(true, completion: nil)
                                     } else {
-                                        self.displayAlert("Update Student Location failed.(\(error))")
+                                        OTMClient.sharedInstance().displayAlert(self, alertString:"Update Student Location failed.(\(error))")
                                     }
                             }
                         } else {
@@ -143,16 +143,17 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate{
                                             print("Successfully Create Student Location.")
                                             self.dismissViewControllerAnimated(true, completion: nil)
                                         } else {
-                                            self.displayAlert("Create Student Location failed.(\(error))")
+                                            OTMClient.sharedInstance().displayAlert(self, alertString: "Create Student Location failed.(\(error))")
                                         }
                                     }
                                 } else {
-                                    self.displayAlert("Get User Data Failed.")
+                                    OTMClient.sharedInstance().displayAlert(self, alertString:"Get User Data Failed.")
                                 }
                             }
                         }
                     }
-                } else { self.displayAlert("Check Student Location by ID Failed.")
+                } else {
+                    OTMClient.sharedInstance().displayAlert(self, alertString:"Check Student Location by ID Failed.")
                 }
             }
         }
@@ -207,16 +208,6 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate{
         
     }
     
-    func displayAlert(alertString: String?) {
-        dispatch_async(dispatch_get_main_queue(), {
-            if let alertString = alertString {
-                let alertController = UIAlertController(title: "", message: "\(alertString)", preferredStyle: .Alert)
-                let dismiss = UIAlertAction(title: "Dismiss", style: .Cancel) { (action) -> Void in }
-                alertController.addAction(dismiss)
-                self.presentViewController(alertController, animated: true, completion: nil)
-            }
-        })
-    }
     
     func enableActivityIndicator() {
         activityIndicator.hidden = false

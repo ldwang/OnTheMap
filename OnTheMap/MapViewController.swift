@@ -62,7 +62,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     //print(locations)
                 }
             } else {
-                print(errorString)
+                OTMClient.sharedInstance().displayAlert(self, alertString: errorString)
+                print(errorString!)
             }
         }
     }
