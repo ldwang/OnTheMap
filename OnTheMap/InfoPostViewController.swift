@@ -71,16 +71,23 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate{
                     OTMClient.sharedInstance().displayAlert(self, alertString:"Could Not Geocode the String.")
                     return
                 }
+                
                 guard placemarks?.count > 0 else {
                     self.disableActivityIndicator()
                     OTMClient.sharedInstance().displayAlert(self, alertString:"Could Not Geocode the String.")
                     return
                 }
+                
                 self.disableActivityIndicator()
                 let placemark = placemarks![0]
                 self.location = placemark.location
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = placemark.location!.coordinate
+                //Setup the region
+                let span = MKCoordinateSpanMake(0.05, 0.05)
+                let region = MKCoordinateRegion(center: annotation.coordinate, span: span)
+                self.mapView.setRegion(region, animated: true)
+                //Add and show the annotation on the map
                 self.mapView.addAnnotation(annotation)
                 self.state = 1
                 self.configureUIForState(self.state)

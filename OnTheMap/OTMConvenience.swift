@@ -73,7 +73,7 @@ extension OTMClient {
         }
     }
     
-    func logoutUdacity(){
+    func logoutUdacity(hostViewController: UIViewController, completionHandler: (success: Bool, errorString: String?) -> Void){
         
         /* Build the URL and configure the request */
         let urlString = OTMClient.Constants.UdacityBaseURLSecure + OTMClient.Methods.Session
@@ -102,14 +102,17 @@ extension OTMClient {
         let task = session.dataTaskWithRequest(request) { data, response, error in
             
             if error != nil { // Handle error…
+                completionHandler(success: false, errorString: error?.localizedDescription)
                 
-                return
-                
+            } else {
+            
+                let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
+            
+                print(NSString(data: newData, encoding: NSUTF8StringEncoding))
+            
+                completionHandler(success: true, errorString: nil)
             }
             
-            let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
-            
-            print(NSString(data: newData, encoding: NSUTF8StringEncoding))
             
         }
         
@@ -126,7 +129,7 @@ extension OTMClient {
         taskForGETMethod(site, method: method, parameters: parameters) { (jsonResult, error) in
             if let error = error {
                 print(error)
-                completionHandler(success: false, locations: [StudentInformation](), errorString: "Get Students Location Data Failed.")
+                completionHandler(success: false, locations: [StudentInformation](), errorString: "Get Students Location Data Failed.(\(error.localizedDescription))")
             } else {
                 
                 if let results = jsonResult["results"] as? [[String : AnyObject]] {
@@ -160,7 +163,7 @@ extension OTMClient {
         taskForPOSTMethod(site, method: method, parameters: parameters, jsonBody: jsonBody) { jsonResult, error in
             if let error = error {
                 print(error)
-                completionHandler(success: false, errorString: "Post Student Location Failed.(\(error))")
+                completionHandler(success: false, errorString: "Post Student Location Failed.(\(error.localizedDescription))")
                 } else {
                     if let createdAt = jsonResult.objectForKey("createdAt") as? String {
                     
@@ -201,7 +204,7 @@ extension OTMClient {
         taskForPUTMethod(site, method: mutableMethod, parameters: parameters, jsonBody: jsonBody) { jsonResult, error in
             if let error = error {
                 print(error)
-                completionHandler(success: false, errorString: "Update Student Location Failed.(\(error))")
+                completionHandler(success: false, errorString: "Update Student Location Failed.(\(error.localizedDescription))")
             } else {
                 if let updatedAt = jsonResult.objectForKey("updatedAt") as? String {
                     
@@ -230,7 +233,7 @@ extension OTMClient {
         taskForGETMethod(site, method: mutableMethod, parameters: parameters) { (jsonResult, error) in
             if let error = error {
                 print(error)
-                completionHandler(success: false, firstName: nil, lastName: nil, errorString: "Get User Data Failed.")
+                completionHandler(success: false, firstName: nil, lastName: nil, errorString: "Get User Data Failed.(\(error.localizedDescription))")
             } else {
                 
                 if let user = jsonResult["user"] as? [String : AnyObject] {
@@ -259,9 +262,9 @@ extension OTMClient {
             if let error = error {
                 print(error)
                 
-                completionHandler(success: false, locations: [StudentInformation](), errorString: "Get Student(ID: \(userID) Location Data Failed.")
+                completionHandler(success: false, locations: [StudentInformation](), errorString: "Get Student(ID: \(userID) Location Data Failed.(\(error.localizedDescription))")
             } else {
-                print(jsonResult)
+                //print(jsonResult)
                 if let results = jsonResult["results"] as? [[String : AnyObject]] {
                     var locations: [StudentInformation] = [StudentInformation]()
                     locations = StudentInformation.studentInformationFromResults(results)
@@ -303,6 +306,7 @@ extension OTMClient {
                     }
                 }
             } else {
+                self.displayAlert(hostViewController, alertString: errorString)
                 print(errorString)
             }
         }

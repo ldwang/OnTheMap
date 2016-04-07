@@ -37,8 +37,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
    
     @IBAction func logoutButtonTouchUpInside(sender: AnyObject) {
-        OTMClient.sharedInstance().logoutUdacity()
-        self.dismissViewControllerAnimated(true, completion: nil)
+        OTMClient.sharedInstance().logoutUdacity(self) { success, errorString in
+            if success {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                })
+            } else {
+                OTMClient.sharedInstance().displayAlert(self, alertString: errorString)
+            }
+        }
+        
     }
     
     @IBAction func pinButtonTouchUpInside(sender: AnyObject) {
