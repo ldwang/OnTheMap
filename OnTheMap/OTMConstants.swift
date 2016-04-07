@@ -10,7 +10,6 @@
 extension OTMClient {
     
     struct Constants {
-        
         //MARK: Parse API Key and Application ID
         static let ParseAPIKey : String = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
         static let ParseApplicationID : String = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
@@ -34,11 +33,4 @@ extension OTMClient {
         static let UserID = "id"
         static let ObjectID = "objectId"
     }
-    
-    //MARK: Parameter Keys
-//    
-//    struct ParameterKeys {
-//        static let
-//    }
-    
 }

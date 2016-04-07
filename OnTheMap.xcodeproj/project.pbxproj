@@ -10,7 +10,6 @@
 		EF714C1F1C58411200C26E80 /* OTMConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF714C1E1C58411200C26E80 /* OTMConstants.swift */; };
 		EF714C211C58412F00C26E80 /* OTMConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF714C201C58412F00C26E80 /* OTMConvenience.swift */; };
 		EF714C231C58413D00C26E80 /* OTMClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF714C221C58413D00C26E80 /* OTMClient.swift */; };
-		EF714C251C58415000C26E80 /* OTMConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF714C241C58415000C26E80 /* OTMConfig.swift */; };
 		EFABF7971C922455000DFC19 /* InfoPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFABF7961C922454000DFC19 /* InfoPostViewController.swift */; };
 		EFDCA4F21C556982003DDCAC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDCA4F11C556982003DDCAC /* AppDelegate.swift */; };
 		EFDCA4F71C556982003DDCAC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EFDCA4F51C556982003DDCAC /* Main.storyboard */; };
@@ -62,7 +61,6 @@
 		EF714C1E1C58411200C26E80 /* OTMConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMConstants.swift; sourceTree = "<group>"; };
 		EF714C201C58412F00C26E80 /* OTMConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMConvenience.swift; sourceTree = "<group>"; };
 		EF714C221C58413D00C26E80 /* OTMClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMClient.swift; sourceTree = "<group>"; };
-		EF714C241C58415000C26E80 /* OTMConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMConfig.swift; sourceTree = "<group>"; };
 		EFABF7961C922454000DFC19 /* InfoPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPostViewController.swift; sourceTree = "<group>"; };
 		EFDCA4EE1C556982003DDCAC /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFDCA4F11C556982003DDCAC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -136,7 +134,6 @@
 			isa = PBXGroup;
 			children = (
 				EF714C1E1C58411200C26E80 /* OTMConstants.swift */,
-				EF714C241C58415000C26E80 /* OTMConfig.swift */,
 				EF714C221C58413D00C26E80 /* OTMClient.swift */,
 				EF714C201C58412F00C26E80 /* OTMConvenience.swift */,
 				EFE4EC2B1C65B84C00E51F57 /* OTMStudent.swift */,
@@ -413,7 +410,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EFE4EC2C1C65B84C00E51F57 /* OTMStudent.swift in Sources */,
-				EF714C251C58415000C26E80 /* OTMConfig.swift in Sources */,
 				EFDCA5251C556AE1003DDCAC /* LoginViewController.swift in Sources */,
 				EFDCA4F21C556982003DDCAC /* AppDelegate.swift in Sources */,
 				EFDCA5291C556B30003DDCAC /* ListViewController.swift in Sources */,

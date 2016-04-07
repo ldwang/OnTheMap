@@ -42,15 +42,6 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate{
     func dismissKeyboard() {
         view.endEditing(true)
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-    }
 
     @IBAction func cancelButtonTouch(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -184,7 +175,6 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate{
         return true
     }
     
-    
     //Change the UI states
     func configureUIForState(state: Int) {
         if state == 0 {
@@ -214,7 +204,6 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate{
         }
         
     }
-    
     
     func enableActivityIndicator() {
         activityIndicator.hidden = false

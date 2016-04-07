@@ -33,7 +33,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         //Get the last top 100 student locations
         refreshMap()
-    
     }
    
     @IBAction func logoutButtonTouchUpInside(sender: AnyObject) {
@@ -57,8 +56,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         self.mapView.removeAnnotations(mapView.annotations)
         refreshMap()
     }
-    
-        
     
     func refreshMap() {
         
@@ -125,7 +122,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         return pinView
     }
     
-    
     // This delegate method is implemented to respond to taps. It opens the system browser
     // to the URL specified in the annotationViews subtitle property.
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
@@ -136,6 +132,4 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             }
         }
     }
-
-
 }
